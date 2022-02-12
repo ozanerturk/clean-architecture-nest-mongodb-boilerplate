@@ -27,12 +27,10 @@ describe('Usecase - AddTodo', () => {
     }
 
     //act
-
-    usecase = new addTodoUseCases(insertTodo,canIChangeStatus);
+    usecase = new addTodoUseCases(insertTodo, canIChangeStatus);
     let result: Todo = await usecase.execute("helloo")
+
     //assert
-
-
     expect(result.id).toBe(insertedTodoId);
 
   });
