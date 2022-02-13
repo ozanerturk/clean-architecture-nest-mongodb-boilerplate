@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TodoDatabaseModel } from 'infrastructure/database/schemas';
 import { AddTodoModule } from './addTodo/addTodo.module';
+import { GetOneTodoModule } from './getOneTodo/getTodos.module';
+import { GetTodosModule } from './getTodos/getTodos.module';
 
 
 //this module is for only  ease of file management
@@ -9,7 +10,9 @@ import { AddTodoModule } from './addTodo/addTodo.module';
 //but we should export the imported modules so others can injects them
 //in order to not repeate ourselfs will be using same array
 const importExports = [
-    AddTodoModule //see this is named as usecase,
+    AddTodoModule,//see this is named as usecase,
+    GetTodosModule,
+    GetOneTodoModule
 ]
 
 

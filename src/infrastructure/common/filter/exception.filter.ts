@@ -1,5 +1,6 @@
 import { ArgumentsHost, BadRequestException, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
+import { I18nService } from 'nestjs-i18n';
 import { LoggerService } from '../../logger/logger.service';
 
 interface IError {
@@ -9,18 +10,21 @@ interface IError {
 
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
-  constructor (private readonly logger: LoggerService) { }
-  catch(exception: any, host: ArgumentsHost) {
+  constructor(private readonly logger: LoggerService,private readonly i18n: I18nService) {}
+  async catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request: any = ctx.getRequest();
 
     const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-    const message =
+    let message =
       exception instanceof HttpException
         ? (exception.getResponse() as IError)
         : { message: (exception as Error).message, code_error: null };
-  
+
+    message.message= await this.i18n.translate(message.message, {
+      lang: ctx.getRequest().i18nLang,
+    });
     const responseData = {
       ...{
         statusCode: status,

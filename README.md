@@ -8,13 +8,13 @@
 - [x] Swagger
 - [x] Validator
 - [x] MongoDB
+- [ ] rabbitmq/redis ?
 - [ ] localization
 - [ ] business exceptions
-- [ ] PM2
-- [ ] rabbitmq/redis ?
 - [ ] Packaging application
 - [ ] environments //also for docker ?
-- [ ] github action
 - [ ] Docker
+- [ ] PM2
+- [ ] github action
 - [x] Unit Tests
   - [x] Usecases 

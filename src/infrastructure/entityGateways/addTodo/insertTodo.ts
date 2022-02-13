@@ -1,14 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { TodoBaseDatabaseAccess } from 'infrastructure/database/TodoBaseDatabaseAccess';
 import { IInsertTodo } from 'usecases/todo/addTodo/entityGateways';
 import { Todo } from '../../../entities/todo';
-import { TodoDatabaseModel, TodoDocument } from '../../database/schemas';
 @Injectable()
-export class InsertTodo implements IInsertTodo {
-  constructor (@InjectModel(TodoDatabaseModel.name) private todoDatabaseModel: Model<TodoDocument>) {
-
-  }
+export class InsertTodo extends TodoBaseDatabaseAccess implements IInsertTodo {
 
   async execute(todo: Todo): Promise<Todo> {
     let dbModel = new this.todoDatabaseModel(todo);

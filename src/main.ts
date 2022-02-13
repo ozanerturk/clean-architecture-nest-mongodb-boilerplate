@@ -13,7 +13,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Filter
-  app.useGlobalFilters(new AllExceptionFilter(new LoggerService()));
 
   // pipes
   app.useGlobalPipes(new ValidationPipe());

@@ -7,6 +7,7 @@ import { AddTodoResponse } from './addTodo.response';
 import { AddTodoRequest } from './addTodo.requset.';
 import { InsertTodo } from 'infrastructure/entityGateways/addTodo/insertTodo';
 import { CanIChangeStatus } from 'infrastructure/entityGateways/addTodo/canIChangeStatus';
+import { I18nService } from 'nestjs-i18n';
 
 
 @Controller('todo')
@@ -17,7 +18,18 @@ export class AddTodoController {
   constructor (
     private readonly insertTodo: InsertTodo,
     private readonly canIChangeStatus: CanIChangeStatus,
-  ) { }
+    private readonly i18n: I18nService
+  ) { 
+
+    this.yes()
+  }
+
+  async yes(){
+    console.log(await this.i18n.getSupportedLanguages());
+    console.log(await this.i18n.t("common.notfound",{
+      lang:"en"
+    }))
+  }
 
   @Post('')
   @ApiResponseType(AddTodoResponse, true)
